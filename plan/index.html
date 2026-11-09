@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syud Signature BMS - Project Plan & Software Requirements Specification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <div class="max-w-6xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <header class="border-b border-slate-800 pb-8 mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4">
+        <span>F&B SME Enterprise Architecture</span> • <span>IEEE-830 Compliant</span>
+      </div>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight">Syud Signature F&B Business Management System (BMS)</h1>
+      <p class="text-slate-400 mt-2 text-lg">Project Plan, Architecture Blueprint & Software Requirements Specification (SRS)</p>
+      <div class="mt-4 flex flex-wrap gap-4 text-sm text-slate-400">
+        <div><strong class="text-slate-200">Revision:</strong> 1.0.0</div>
+        <div>•</div>
+        <div><strong class="text-slate-200">Target Stack:</strong> React HTML, Vercel, PostgreSQL / Supabase</div>
+        <div>•</div>
+        <div><strong class="text-slate-200">Date:</strong> November 2026</div>
+      </div>
+    </header>
+
+    <!-- Document Navigation Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <a href="#srs" class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition duration-200 group">
+        <div class="text-amber-400 font-bold text-xl group-hover:translate-x-1 transition-transform">01. SRS Document &rarr;</div>
+        <p class="text-slate-400 text-sm mt-2">Functional requirements for POS, KDS, Recipe BOM, Inventory, and Staff.</p>
+      </a>
+      <a href="#plan" class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition duration-200 group">
+        <div class="text-amber-400 font-bold text-xl group-hover:translate-x-1 transition-transform">02. Project Plan &rarr;</div>
+        <p class="text-slate-400 text-sm mt-2">18-week phased implementation roadmap, WBS, risk matrix, and budget.</p>
+      </a>
+      <a href="#schema" class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition duration-200 group">
+        <div class="text-amber-400 font-bold text-xl group-hover:translate-x-1 transition-transform">03. DB Schema &rarr;</div>
+        <p class="text-slate-400 text-sm mt-2">22 PostgreSQL tables covering multi-outlet, orders, recipes, and batches.</p>
+      </a>
+      <a href="#architecture" class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition duration-200 group">
+        <div class="text-amber-400 font-bold text-xl group-hover:translate-x-1 transition-transform">04. Architecture &rarr;</div>
+        <p class="text-slate-400 text-sm mt-2">Offline-first sync engine, KDS WebSockets, and ESC/POS printer protocols.</p>
+      </a>
+    </div>
+
+    <!-- Core Highlights -->
+    <section class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-12">
+      <h2 class="text-2xl font-bold text-amber-400 mb-6">Key Capabilities for F&B SME Business Owners</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
+          <h3 class="font-semibold text-white text-lg mb-2">Recipe-Linked Inventory (BOM)</h3>
+          <p class="text-slate-400 text-sm">Every coffee, burger, or pasta sold instantly depletes grams of ingredients from inventory with dynamic real-time COGS calculations.</p>
+        </div>
+        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
+          <h3 class="font-semibold text-white text-lg mb-2">Offline-First Resilience</h3>
+          <p class="text-slate-400 text-sm">Zero downtime when outlet Wi-Fi drops. Waiters can still punch orders, print kitchen tickets, and collect payments via IndexedDB.</p>
+        </div>
+        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
+          <h3 class="font-semibold text-white text-lg mb-2">Eliminate Cash Leakage</h3>
+          <p class="text-slate-400 text-sm">Blind shift closing, manager PIN overrides for voids and discounts, and automated End-of-Day Z-Reports with discrepancy alerts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Files Reference -->
+    <section class="border border-slate-800 rounded-2xl p-8 bg-slate-900">
+      <h3 class="text-xl font-bold text-white mb-4">Included Documentation Files</h3>
+      <ul class="space-y-3 text-sm text-slate-300">
+        <li class="flex items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">SRS.md</span>
+          <span>Full Software Requirements Specification (IEEE 830 standard)</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">PROJECT_PLAN.md</span>
+          <span>18-Week Implementation Roadmap, Resource Allocation, and Risk Assessment</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">DATABASE_SCHEMA.md</span>
+          <span>PostgreSQL Relational Schema with 22 Tables, DDL, and Indexes</span>
+        </li>
+        <li class="flex items-center gap-3">
+          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">ARCHITECTURE.md</span>
+          <span>System Topology, Offline Sync, KDS Protocol, and Hardware Driver Specs</span>
+        </li>
+      </ul>
+      <div class="mt-8 pt-6 border-t border-slate-800 flex justify-between items-center text-xs text-slate-500">
+        <span>Syud Signature BMS • Ready for Vercel Deployment</span>
+        <span>Launch the React Web App (`npm run dev` or `npm run build`) for interactive mode</span>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
