@@ -78,10 +78,10 @@ export default function ArchitectureTab() {
             Kitchen orders arrive on the head chef's screen under 500ms using persistent WebSocket channels scoped by outlet ID.
           </p>
           <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-emerald-400 space-y-1">
-            <div>channel: `outlet:{outlet_id}:kds`</div>
-            <div>event: `ticket.created` &rarr; triggers chime & column render</div>
-            <div>event: `item.status_changed` &rarr; updates item color</div>
-            <div>event: `ticket.bumped` &rarr; archives ticket</div>
+            <div>channel: "outlet:[outlet_id]:kds"</div>
+            <div>event: "ticket.created" &rarr; triggers chime &amp; column render</div>
+            <div>event: "item.status_changed" &rarr; updates item color</div>
+            <div>event: "ticket.bumped" &rarr; archives ticket</div>
           </div>
         </div>
       </div>
