@@ -14,9 +14,9 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen">
-  <div class="max-w-6xl mx-auto px-6 py-12">
+  <div class="max-w-6xl mx-auto px-6 py-12 space-y-12">
     <!-- Header -->
-    <header class="border-b border-slate-800 pb-8 mb-10">
+    <header class="border-b border-slate-800 pb-8">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-4">
         <span>F&B SME Enterprise Architecture</span> • <span>IEEE-830 Compliant</span>
       </div>
@@ -32,7 +32,7 @@
     </header>
 
     <!-- Document Navigation Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <a href="#srs" class="p-6 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition duration-200 group">
         <div class="text-amber-400 font-bold text-xl group-hover:translate-x-1 transition-transform">01. SRS Document &rarr;</div>
         <p class="text-slate-400 text-sm mt-2">Functional requirements for POS, KDS, Recipe BOM, Inventory, and Staff.</p>
@@ -51,50 +51,125 @@
       </a>
     </div>
 
-    <!-- Core Highlights -->
-    <section class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 mb-12">
-      <h2 class="text-2xl font-bold text-amber-400 mb-6">Key Capabilities for F&B SME Business Owners</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
-          <h3 class="font-semibold text-white text-lg mb-2">Recipe-Linked Inventory (BOM)</h3>
-          <p class="text-slate-400 text-sm">Every coffee, burger, or pasta sold instantly depletes grams of ingredients from inventory with dynamic real-time COGS calculations.</p>
+    <!-- Section 1: Architecture & Offline Engine -->
+    <section id="architecture" class="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-amber-400 font-mono text-xs font-bold uppercase">Section 04</span>
+          <h2 class="text-2xl font-bold text-white mt-1">High-Reliability Architecture & Offline Resilience</h2>
         </div>
-        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
-          <h3 class="font-semibold text-white text-lg mb-2">Offline-First Resilience</h3>
-          <p class="text-slate-400 text-sm">Zero downtime when outlet Wi-Fi drops. Waiters can still punch orders, print kitchen tickets, and collect payments via IndexedDB.</p>
+        <span class="px-3 py-1 rounded bg-amber-500/10 text-amber-400 font-mono text-xs font-bold">IndexedDB + LAN Sockets</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <div class="text-amber-400 text-xs font-bold font-mono">STEP 01</div>
+          <div class="font-bold text-white text-sm mt-1">Order Punched on POS</div>
+          <p class="text-xs text-slate-400 mt-1">Waiter inputs order. Saved immediately to client-side IndexedDB.</p>
         </div>
-        <div class="p-5 rounded-lg bg-slate-900 border border-slate-800">
-          <h3 class="font-semibold text-white text-lg mb-2">Eliminate Cash Leakage</h3>
-          <p class="text-slate-400 text-sm">Blind shift closing, manager PIN overrides for voids and discounts, and automated End-of-Day Z-Reports with discrepancy alerts.</p>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <div class="text-amber-400 text-xs font-bold font-mono">STEP 02</div>
+          <div class="font-bold text-white text-sm mt-1">Direct LAN ESC/POS Print</div>
+          <p class="text-xs text-slate-400 mt-1">Raw ESC/POS bytes fired directly to local 80mm kitchen printer over Wi-Fi.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <div class="text-amber-400 text-xs font-bold font-mono">STEP 03</div>
+          <div class="font-bold text-white text-sm mt-1">Online / Offline Branch</div>
+          <p class="text-xs text-slate-400 mt-1">If online, pushes to Vercel API. If disconnected, queues locally.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800">
+          <div class="text-emerald-400 text-xs font-bold font-mono">STEP 04</div>
+          <div class="font-bold text-white text-sm mt-1">Background Cloud Sync</div>
+          <p class="text-xs text-slate-400 mt-1">Background worker flushes queue into PostgreSQL upon reconnect.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <h3 class="font-bold text-white text-sm">ESC/POS Thermal Printing & Cash Drawer</h3>
+          <p class="text-xs text-slate-400">Raw text and ESC/POS hex commands sent via Port 9100 TCP Socket or WebUSB. Solenoid RJ11 kick opens cash drawer on cash tenders.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <h3 class="font-bold text-white text-sm">Sub-Second KDS WebSocket Bus</h3>
+          <p class="text-xs text-slate-400">Scoped channel per outlet (`outlet:{id}:kds`) pushes tickets to kitchen screens in under 500ms with color-coded aging timers.</p>
         </div>
       </div>
     </section>
 
-    <!-- Project Files Reference -->
-    <section class="border border-slate-800 rounded-2xl p-8 bg-slate-900">
-      <h3 class="text-xl font-bold text-white mb-4">Included Documentation Files</h3>
-      <ul class="space-y-3 text-sm text-slate-300">
-        <li class="flex items-center gap-3">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">SRS.md</span>
-          <span>Full Software Requirements Specification (IEEE 830 standard)</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">PROJECT_PLAN.md</span>
-          <span>18-Week Implementation Roadmap, Resource Allocation, and Risk Assessment</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">DATABASE_SCHEMA.md</span>
-          <span>PostgreSQL Relational Schema with 22 Tables, DDL, and Indexes</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-mono text-xs">ARCHITECTURE.md</span>
-          <span>System Topology, Offline Sync, KDS Protocol, and Hardware Driver Specs</span>
-        </li>
-      </ul>
-      <div class="mt-8 pt-6 border-t border-slate-800 flex justify-between items-center text-xs text-slate-500">
-        <span>Syud Signature BMS • Ready for Vercel Deployment</span>
-        <span>Launch the React Web App (`npm run dev` or `npm run build`) for interactive mode</span>
+    <!-- Section 2: SRS Document Highlights -->
+    <section id="srs" class="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-amber-400 font-mono text-xs font-bold uppercase">Section 01</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Software Requirements Specification (SRS)</h2>
+        </div>
+        <span class="px-3 py-1 rounded bg-slate-800 text-slate-300 font-mono text-xs">See plan/SRS.md for full specs</span>
       </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="font-bold text-amber-400">FR-POS: Omnichannel POS</span>
+          <p class="text-slate-300">Table floor plan, split billing, multi-tender payments, offline fallback queue, manager PIN discounts.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="font-bold text-amber-400">FR-REC: Recipe BOM & COGS</span>
+          <p class="text-slate-300">Sub-assembly recipes, live plate cost calculation from purchase invoices, allergen matrix, target margins.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="font-bold text-amber-400">FR-INV: Perishable Stock & Waste</span>
+          <p class="text-slate-300">Auto-depletion per plate sold, FIFO lot rotation, 48h expiry alerts, physical stock take audit variance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Project Plan & Roadmap -->
+    <section id="plan" class="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-amber-400 font-mono text-xs font-bold uppercase">Section 02</span>
+          <h2 class="text-2xl font-bold text-white mt-1">18-Week Implementation Roadmap</h2>
+        </div>
+        <span class="px-3 py-1 rounded bg-slate-800 text-slate-300 font-mono text-xs">6 Agile Milestone Gates</span>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 1: Foundation, Multi-Tenant Database & Core Auth</span>
+          <span class="text-amber-400 font-mono">Weeks 1 – 3</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 2: Menu Engineering, Recipe BOM & Dynamic Costing</span>
+          <span class="text-amber-400 font-mono">Weeks 4 – 6</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 3: Touch POS Engine & Kitchen Display System (KDS)</span>
+          <span class="text-amber-400 font-mono">Weeks 7 – 10</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 4: Perishable Inventory, Batch Tracking & Waste Management</span>
+          <span class="text-amber-400 font-mono">Weeks 11 – 13</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 5: Workforce Shifts, Cash Control & Financial Reports</span>
+          <span class="text-amber-400 font-mono">Weeks 14 – 16</span>
+        </div>
+        <div class="p-3.5 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
+          <span class="font-bold text-white">Phase 6: Live Pilot Outlet Deployment, UAT & Launch</span>
+          <span class="text-amber-400 font-mono">Weeks 17 – 18</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: PostgreSQL Schema -->
+    <section id="schema" class="p-8 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-amber-400 font-mono text-xs font-bold uppercase">Section 03</span>
+          <h2 class="text-2xl font-bold text-white mt-1">22-Table PostgreSQL / Supabase Schema</h2>
+        </div>
+        <span class="px-3 py-1 rounded bg-slate-800 text-slate-300 font-mono text-xs">See plan/DATABASE_SCHEMA.md</span>
+      </div>
+      <p class="text-xs text-slate-400">
+        Entities: <code>users</code>, <code>outlets</code>, <code>dining_tables</code>, <code>menu_categories</code>, <code>menu_items</code>, <code>ingredients</code>, <code>recipes_bom</code>, <code>inventory_batches</code>, <code>stock_movements</code>, <code>orders</code>, <code>order_items</code>, <code>payments</code>, <code>cash_registers</code>, <code>expenses</code>, <code>customers</code>, and <code>wastage_logs</code>.
+      </p>
     </section>
   </div>
 </body>

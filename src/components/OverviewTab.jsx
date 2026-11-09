@@ -1,8 +1,46 @@
 import React from 'react';
-import { TrendingUp, Clock, ShieldCheck, WifiOff, Store, DollarSign, Database, Server, Cpu, Check, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Clock, ShieldCheck, WifiOff, Store, DollarSign, Database, Server, Cpu, Check, AlertTriangle, Zap, ArrowRight, Layers, FileText } from 'lucide-react';
 import { projectOverview } from '../data/srsData';
 
 export default function OverviewTab({ setActiveTab }) {
+  const quickLinks = [
+    {
+      id: 'architecture',
+      title: 'Architecture & Offline Engine',
+      icon: <Zap className="h-5 w-5 text-amber-400" />,
+      desc: 'IndexedDB local resilience, direct LAN ESC/POS thermal printing & KDS WebSockets.',
+      badge: 'Core Reliability'
+    },
+    {
+      id: 'preview',
+      title: 'Live BMS Prototype',
+      icon: <Store className="h-5 w-5 text-amber-400" />,
+      desc: 'Interactive touch POS ordering, live recipe costing calculator & KDS bump screen.',
+      badge: 'Functional Simulator'
+    },
+    {
+      id: 'srs',
+      title: 'SRS Requirements Catalog',
+      icon: <FileText className="h-5 w-5 text-amber-400" />,
+      desc: 'Searchable IEEE-830 functional requirements across 10 operational modules.',
+      badge: 'Specifications'
+    },
+    {
+      id: 'database',
+      title: 'PostgreSQL Relational Schema',
+      icon: <Database className="h-5 w-5 text-amber-400" />,
+      desc: '22 relational database tables with DDL, ACID constraints, and indexing.',
+      badge: 'PostgreSQL 15+'
+    },
+    {
+      id: 'plan',
+      title: '18-Week Project Roadmap',
+      icon: <Layers className="h-5 w-5 text-amber-400" />,
+      desc: '6 implementation milestones, WBS, resource allocation, and risk matrix.',
+      badge: 'Execution Plan'
+    }
+  ];
+
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Hero Section */}
@@ -19,19 +57,50 @@ export default function OverviewTab({ setActiveTab }) {
           </p>
           <div className="pt-2 flex flex-wrap gap-3">
             <button
-              onClick={() => setActiveTab('preview')}
-              className="px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-semibold text-sm transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
+              onClick={() => setActiveTab('architecture')}
+              className="px-5 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition shadow-lg shadow-amber-500/20 flex items-center gap-2"
             >
-              <span>Explore Live BMS Prototype</span>
-              <span>&rarr;</span>
+              <Zap className="h-4 w-4 text-slate-950" />
+              <span>Explore Architecture & Offline Engine</span>
+              <ArrowRight className="h-4 w-4" />
             </button>
             <button
-              onClick={() => setActiveTab('srs')}
+              onClick={() => setActiveTab('preview')}
               className="px-5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-sm transition border border-slate-700"
             >
-              Read Software Requirements (SRS)
+              Test Live BMS Prototype
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Quick Navigation Cards */}
+      <div>
+        <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Jump Directly to Modules</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {quickLinks.map((link) => (
+            <div
+              key={link.id}
+              onClick={() => setActiveTab(link.id)}
+              className="p-5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 hover:bg-slate-800/40 transition cursor-pointer flex flex-col justify-between group"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-lg bg-slate-950 border border-slate-800 group-hover:border-amber-500/40 transition">
+                    {link.icon}
+                  </div>
+                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                    {link.badge}
+                  </span>
+                </div>
+                <h4 className="font-bold text-white text-base group-hover:text-amber-400 transition flex items-center gap-1.5">
+                  <span>{link.title}</span>
+                  <ArrowRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition" />
+                </h4>
+                <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">{link.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -105,63 +174,6 @@ export default function OverviewTab({ setActiveTab }) {
                 <span><strong>Offline-First Resilience:</strong> Client-side IndexedDB caching allows uninterrupted ordering & direct LAN thermal printing during internet drops.</span>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Target Roles & Architecture Stack */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4">
-          <h4 className="text-lg font-bold text-white flex items-center gap-2">
-            <Store className="h-5 w-5 text-amber-400" />
-            <span>Built for Every Role in the Outlet</span>
-          </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="p-4 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <div className="font-semibold text-amber-400 text-sm">Business Owner / Partner</div>
-              <p className="text-xs text-slate-400 mt-1">Multi-branch consolidated P&L, real-time gross margin alerts, menu engineering BCG matrix.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <div className="font-semibold text-amber-400 text-sm">Outlet Manager & Supervisor</div>
-              <p className="text-xs text-slate-400 mt-1">Shift rosters, blind cash audits, manager PIN overrides for voids, physical stock takes.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <div className="font-semibold text-amber-400 text-sm">Cashier & Floor Waiters</div>
-              <p className="text-xs text-slate-400 mt-1">Lightning fast table ordering, split bills, multi-tender payments, offline fallback queue.</p>
-            </div>
-            <div className="p-4 rounded-lg bg-slate-800/60 border border-slate-700/60">
-              <div className="font-semibold text-amber-400 text-sm">Head Chef & Kitchen Crew</div>
-              <p className="text-xs text-slate-400 mt-1">Digital KDS station routing, bump bars, color-coded aging timers, kitchen wastage logs.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-2xl bg-slate-900 border border-slate-800 p-6 space-y-4">
-          <h4 className="text-lg font-bold text-white flex items-center gap-2">
-            <Server className="h-5 w-5 text-amber-400" />
-            <span>Modern Cloud Stack</span>
-          </h4>
-          <div className="space-y-3 pt-2 text-xs text-slate-300">
-            <div className="flex items-center justify-between p-2.5 rounded bg-slate-800/50">
-              <span className="text-slate-400">Frontend UI</span>
-              <span className="font-semibold text-white">React 19 + Tailwind v4</span>
-            </div>
-            <div className="flex items-center justify-between p-2.5 rounded bg-slate-800/50">
-              <span className="text-slate-400">Edge & Hosting</span>
-              <span className="font-semibold text-white">Vercel Edge Platform</span>
-            </div>
-            <div className="flex items-center justify-between p-2.5 rounded bg-slate-800/50">
-              <span className="text-slate-400">Relational DB</span>
-              <span className="font-semibold text-white">PostgreSQL / Supabase</span>
-            </div>
-            <div className="flex items-center justify-between p-2.5 rounded bg-slate-800/50">
-              <span className="text-slate-400">Client Offline DB</span>
-              <span className="font-semibold text-white">IndexedDB (Dexie)</span>
-            </div>
-            <div className="flex items-center justify-between p-2.5 rounded bg-slate-800/50">
-              <span className="text-slate-400">Hardware Printing</span>
-              <span className="font-semibold text-white">ESC/POS LAN / WebUSB</span>
-            </div>
           </div>
         </div>
       </div>
